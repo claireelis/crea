@@ -1,0 +1,113 @@
+body 
+{
+	background-color:#d0e4fe;
+}
+
+h1 
+{
+	text-align:center;
+	font-family:"Courier";
+	padding-bottom:20px;
+}
+
+h3 
+{
+	text-align:center;
+	font-family:"Courier";
+}
+
+body 
+{
+	font-family:"Courier";
+	margin-top:50px;
+	margin-bottom:50px;
+	margin-right:50px;
+	margin-left:50px;
+}
+
+ol
+{
+	font-family:"courier";
+	font-size:18px;
+}
+
+p 
+{
+	font-family:"courier";
+	font-size:18px;
+}
+
+Alert
+{
+	text-align: center;
+}
+
+.clear { /* generic container (i.e. div) for floating buttons */
+	overflow: hidden;
+	width: 100%;
+}
+
+#button 
+{
+	font-family:"helvetica";
+	font-size:18px;
+}
+
+#submit 
+{
+	font-family:"helvetica";
+	font-size:18px;
+}
+
+#answerform 
+{
+	text-align:center;
+}
+
+#stimulus
+{
+	text-align:center;
+	font-family:"helvetica";
+	font-size:80px;
+} 
+
+#admin
+{
+	font-family:"helvetica";
+	font-size:14px;
+}
+
+#response
+{
+	font-family:"helvetica";
+	font-size:14px;
+}
+
+#error
+{
+	text-align:center;
+	color : #ff0000;
+	font-size:12px;
+}
+
+table.db-table 		
+{ 
+	border-right:1px solid #ccc; 
+	border-bottom:1px solid #ccc; 
+}
+
+table.db-table th	
+{ 
+	background:#eee; 
+	padding:5px;
+       	border-left:1px solid #ccc; 
+	border-top:1px solid #ccc; 
+}
+
+table.db-table td	
+{ 
+	padding:5px;
+       	border-left:1px solid #ccc; 
+	border-top:1px solid #ccc; 
+}
+
