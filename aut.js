@@ -1,12 +1,12 @@
 <!--
 var itemnr = 0;
-var itemstimulus = "potlood";
 var startItemNr = 1;
 var pauseItemNr = 4;
 var endItemNr = 8;
 var timer;
 var itemDuration = 10000; // for testing purposes -> 10 seconds
 //var itemDuration = 120000; // in milliseconds -> 2 minuten is 120000
+var itemstimulus = "";
 var response = "";
 var starttime = "";
 var endtime = "";
@@ -36,6 +36,7 @@ function nextItem() {
 	if (itemnr == endItemNr) {
 		endSign();
 	}
+	
 	send = encodeURIComponent(response);
 	response = response.substring(0, response.length-1);
 	starttime = starttime.substring(0, starttime.length-1);
@@ -49,7 +50,7 @@ function clearResponse() {
 
 function produceStimulus() {
 	var time = Math.round(new Date().getTime());
-	starttime += time+";";
+	starttime += starttime+";";
 	
 	document.getElementById("stimulus").innerHTML=itemstimulus;
 	document.getElementById("answer").value="";
@@ -63,9 +64,9 @@ function appendResponse() {
 	var time = Math.round(new Date().getTime());
 	var answer = document.getElementById("answer").value;
 
-	endtime += time+";";
+	endtime += endtime+";";
 	response += answer+";";
-
+	
 	document.getElementById("response").innerHTML+="<br/>"+answer;
 	document.getElementById("answer").value="";
 }
@@ -106,18 +107,6 @@ function pauseSign() {
 
 function endSign() {	
 	displayMessage("***EINDE***\n\nJe bent nu klaar met deze taak.\nDruk op OK om naar de volgende onderdeel te gaan.");
-}
-
-function preloadImages() {
-	var i;
-	var imageObj = new Image();
-	
-	for (i in rs_stimuli) {
-		imageObj.src='gfx/'+stimuli_dir[sessionnr%4]+'/'+rs_stimuli[i]+'.png';
-		imageObj.src='gfx/train_break/'+stimuli_dir[sessionnr%4]+'/'+rs_stimuli[i]+'.png';
-		imageObj.src='gfx/train_end/'+stimuli_dir[sessionnr%4]+'/'+rs_stimuli[i]+'.png';
-		imageObj.src='gfx/train_start/'+stimuli_dir[sessionnr%4]+'/'+rs_stimuli[i]+'.png';
-	}
 }
 
 //-->

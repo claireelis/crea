@@ -16,7 +16,10 @@ if (!isset($_SESSION["aut1"])) {
 
 // get response if there is one
 if ($_SERVER["REQUEST_METHOD"] == ("GET" || "POST")) {	
-	get_task_data();
+	// TODO: length of start and endtimes is not the same
+	// only one starttime supplied. all other starttimes should be prev endtime
+	// dbase inserts don't work
+	// get_task_data();
 }
 
 if (!isset($_SESSION['autitemnr'])) {
