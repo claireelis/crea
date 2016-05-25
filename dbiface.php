@@ -48,8 +48,25 @@ function dbSelectUser_by_username_password($username, $password) {
 	else {
 		$output = 0;
 	}
+
 	dbClose($result);
 	return $output;
+}
+
+function dbSelectUserid_by_participantnr_name($participantnr, $name) {
+	$sql = "SELECT user_id FROM user WHERE participantnr=$participantnr and name='$name'";
+	$result = dbQuery($sql);
+	$count = mysqli_num_rows($result);
+	
+	if ($count == 1) { 
+		$output = mysqli_fetch_array($result);
+	}
+	else {
+		$output = 0;
+	}
+
+	dbClose($result);
+	return $output[0];
 }
 
 function dbInsertParticipant($name, $participantnr, $gender, $dob, $credit=FALSE,

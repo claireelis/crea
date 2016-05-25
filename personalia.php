@@ -19,28 +19,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (error_post_requiredfields($participant_required_fields)) {
 		$_SESSION['errormsg']="Graag alle vragen beantwoorden.";
 	} else {
-		$dob = mktime(0,0,0,$_POST['dob_m'], $_POST['dob_d'], $_POST['dob_y']);
+		$dob = date_unix2mysql(mktime(0,0,0,$_POST['dob_m'], $_POST['dob_d'], $_POST['dob_y']));
 		$informedconsent = 1;
-		/*
-		if (empty($_POST['email'])) {
-			$_POST['email'] = NULL;
-		}
-		if (empty($participant['studentnr'])) {
-			$participant['studentnr'] = NULL;
-		}
-		*/
+		$participantnr = date("YmdHi");
+		$name = $_POST['name'];
 		
-		if (!dbInsertParticipant($_POST['name'], date("YmdHi"), 
-			$_POST['gender'], date_unix2mysql($dob),  
+		if (!dbInsertParticipant($name, $participantnr, 
+			$_POST['gender'], $dob,  
 			$_POST['lottery'], $_POST['credit'], 
 			$informedconsent, $_POST['email'], $_POST['studentnr'])) {
 			$_SESSION['errormsg'].= "dbInsertParticipant failed.";
 		}
-				
-		/*	
-		TODO sessionUpdateUser_id();
-		*/
-		//header("Location: expBP2016.php");
+		
+		// update user id
+		$userid = dbSelectUserid_by_participantnr_name($participantnr, $name);
+		if ($userid) {
+			$_SESSION['user_id'] = $userid;
+		}
+
+		header("Location: expBP2016.php");
 	}
 } 
 

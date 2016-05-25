@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 }
 
 //debugging
-//print_r($_SESSION);
+print_r($_SESSION);
 
 include_once('common.php'); 
 include_once('dbiface.php'); 
