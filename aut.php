@@ -16,10 +16,7 @@ if (!isset($_SESSION["aut1"])) {
 
 // get response if there is one
 if ($_SERVER["REQUEST_METHOD"] == ("GET" || "POST")) {	
-	// TODO: length of start and endtimes is not the same
-	// only one starttime supplied. all other starttimes should be prev endtime
-	// dbase inserts don't work
-	// get_task_data();
+	get_task_data();
 }
 
 if (!isset($_SESSION['autitemnr'])) {
@@ -29,6 +26,7 @@ if (!isset($_SESSION['autitemnr'])) {
 }
 
 if ($_SESSION['autitemnr'] > AUT_NUMSTIMULI) {
+	$_SESSION['autitemnr'] = RESET;
 	header("location: expBP2016.php");
 }
 ?>
@@ -68,3 +66,7 @@ if ($_SESSION['autitemnr'] > AUT_NUMSTIMULI) {
 	</p>
 </body>
 </html>
+
+<?php
+$_SESSION['errormsg'] = "";
+?>

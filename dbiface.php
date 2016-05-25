@@ -84,17 +84,12 @@ function dbInsertParticipant($name, $participantnr, $gender, $dob, $credit=FALSE
 
 function dbInsertAUTResponses_by_userid_stimulusid($userid, $stimulusid, 
 	$response, $starttime, $endtime) {
-	global $dbconnect;
-	
-	$response = mysqli_real_escape_string($dbconnect, $response);
+
 	$sql="INSERT INTO `aut-response` 
-		(participant_fk, stimulus_fk, response, starttime, endtime) 
-		VALUES ($userid, $stimulusid, \"$response\", 
-		FROM_UNIXTIME($starttime), FROM_UNIXTIME($endtime),)";
+		(`participant_fk`, `stimulus_fk`, `response`, `starttime`, `endtime`) 
+		VALUES ($userid, $stimulusid, \"$response\", $starttime, $endtime)";
 	
 	$result = dbQuery($sql);
-	print $sql;
-	print $result;
 	return $result;
 }
 
@@ -112,9 +107,6 @@ function dbSelectAllStimuli_aut() {
 	$sql = "SELECT * FROM `aut-stimulus`";
 	$result = dbQuery($sql);
 	
-	print($sql);
-	print_r($result);
-
 	if (!($result)) {
 		$_SESSION['errormsg'] .= 'DBerror: cannot find stimuli.';
 		return 0;

@@ -50,7 +50,7 @@ function clearResponse() {
 
 function produceStimulus() {
 	var time = Math.round(new Date().getTime());
-	starttime += starttime+";";
+	starttime += time+";";
 	
 	document.getElementById("stimulus").innerHTML=itemstimulus;
 	document.getElementById("answer").value="";
@@ -64,7 +64,7 @@ function appendResponse() {
 	var time = Math.round(new Date().getTime());
 	var answer = document.getElementById("answer").value;
 
-	endtime += endtime+";";
+	endtime += time+";";
 	response += answer+";";
 	
 	document.getElementById("response").innerHTML+="<br/>"+answer;
@@ -79,20 +79,16 @@ function submitEnter(myfield,e) {
 	
 	
 	// if press Enter key
-	if (keycode == 13)
-	{
+	if (keycode == 13)	{
 		appendResponse();
 		return false;
-	}
-	else 
-	{
+	} else {
 		return true;
 	}
 }
 
 function putFocus(formInst, elementInst) {
-    if (document.forms.length > 0) 
-    {
+    if (document.forms.length > 0) {
       document.forms[formInst].elements[elementInst].focus();
     }
 }
@@ -109,4 +105,27 @@ function endSign() {
 	displayMessage("***EINDE***\n\nJe bent nu klaar met deze taak.\nDruk op OK om naar de volgende onderdeel te gaan.");
 }
 
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
 //-->

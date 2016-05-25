@@ -10,14 +10,21 @@ function get_task_data() {
 		$responses = explode(';', $_GET['response']);
 	}
 	if (isset($_GET['starttime'])) {
-		$starttimes = explode(';', $_GET['starttime']);
+		$starttime = explode(';', $_GET['starttime']);
 	}
 	if (isset($_GET['endtime'])) {
 		$endtimes = explode(';', $_GET['endtime']);
 	}
+	
+	// combine starttimes and endtimes to get complete starttimes array
+	// endtime of previous answer is starttime of next answer
+	// last element of enttimes is not a starttime so remove it
+	if (isset($starttime) && (count($starttime) == 1)) {
+		$starttimes = array_merge($starttime, array_slice($endtimes, 0, -1));
+	}
 
 	// insert each response tuple
-	if ((!empty($responses))||(!empty($starttimes))||(!empty($endtimes))) {
+	if ((!empty($responses))&&(!empty($starttimes))&&(!empty($endtimes))) {
 		if ($_SESSION['expphase'] == EXP_AUT) {
 			$itemnr = $_SESSION['autitemnr'];
 			$stimulusid = $_SESSION["autid$itemnr"];
@@ -26,26 +33,25 @@ function get_task_data() {
 			$stimulusid = $_SESSION["vfid$itemnr"];
 		} else {
 			$_SESSION['errormsg'] .= "incorrect experiment phase to insert GET or POST data.";
-			print_r($responses);
-			print_r($starttimes);
-			print_r($endtimes);
 		}
 		
-		print_r($responses);
-		print_r($starttimes);
-		print_r($endtimes);
-		
-		if((sizeof($responses) != sizeof($starttimes)) 
-			|| (sizeof($starttimes) != sizeof($endtimes))) {
+		if((count($responses) != count($starttimes)) 
+			|| (count($starttimes) != count($endtimes))) {
 			$_SESSION['errormsg'] .= "GET/POST data vars not of equal size";
-		} else {
+		} else {		
 			for ($i=0; $i < sizeof($responses);$i++) {
-				if (!dbInsertAUTResponses_by_userid_stimulusid($_SESSION['user_id'],
-					$stimulusid, $responses[$i], $starttimes[$i], $endtimes[$i])) {
-					$_SESSION['errormsg'] .= "response insert failed for 
-					$stimulusid, $responses[$i], $starttimes[$i], $endtimes[$i].";
+				if (strlen($responses[$i]) < 2) {
+					$_SESSION['errormsg'] .= "no response";
+				} else {
+					$dbres = dbInsertAUTResponses_by_userid_stimulusid(
+					$_SESSION['user_id'], $stimulusid, $responses[$i], 
+					$starttimes[$i], $endtimes[$i]);
+					if (!$dbres) {
+						$_SESSION['errormsg'] .= "response insert failed.";
+					}
 				}
 			}	
+			
 		}
 	}
 }
@@ -76,6 +82,7 @@ function date_unix2mysql($unixtimestamp) {
  */
 // user_id unknown
 define("UNKNOWN", 9999);
+define("RESET", 999);
  
 // user roles
 define("PARTICIPANT", 1);
