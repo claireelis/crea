@@ -8,7 +8,8 @@ var timer;
 var itemDuration = 10000; // for testing purposes -> 10 seconds
 //var itemDuration = 120000; // in milliseconds -> 2 minuten is 120000
 var response = "";
-var timestamp = "";
+var starttime = "";
+var endtime = "";
 
 function load() {
 	itemnr = document.getElementById("itemnr").value;
@@ -37,8 +38,9 @@ function nextItem() {
 	}
 	send = encodeURIComponent(response);
 	response = response.substring(0, response.length-1);
-	timestamp = timestamp.substring(0, timestamp.length-1);
-	window.location = "aut.php?timestamp="+timestamp+"&response="+response;
+	starttime = starttime.substring(0, starttime.length-1);
+	endtime = endtime.substring(0, endtime.length-1);
+	window.location = "aut.php?starttime="+starttime+"&endtime="+endtime+"&response="+response;
 }
 
 function clearResponse() {
@@ -46,6 +48,9 @@ function clearResponse() {
 }
 
 function produceStimulus() {
+	var time = Math.round(new Date().getTime());
+	starttime += time+";";
+	
 	document.getElementById("stimulus").innerHTML=itemstimulus;
 	document.getElementById("answer").value="";
 }
@@ -55,10 +60,10 @@ function displayMessage(msg) {
 }
 
 function appendResponse() {
-	var time = Math.round(new Date().getTime() / 1000);
+	var time = Math.round(new Date().getTime());
 	var answer = document.getElementById("answer").value;
 
-	timestamp += time+";";
+	endtime += time+";";
 	response += answer+";";
 
 	document.getElementById("response").innerHTML+="<br/>"+answer;

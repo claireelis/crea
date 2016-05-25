@@ -4,8 +4,14 @@ include_once('accesscontrol.php');
 include_once('expBP2016_defs.php');
 
 if (!isset($_SESSION["vf1"])) {
-	$_SESSION["vf1"] = "dieren";
-	$_SESSION["vf2"] = "banen";
+	$stimuli = dbSelectAllStimuli_vf();
+
+	$i=0;
+	foreach($stimuli as $skey => $svalue) {
+		$i++;
+		$_SESSION["vfid$i"] = $skey;
+		$_SESSION["vf$i"] = $svalue;
+	}
 }
 
 if (!isset($_SESSION['vfitemnr'])) {

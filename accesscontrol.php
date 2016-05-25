@@ -9,7 +9,6 @@ if (!isset($_SESSION)) {
 
 include_once('common.php'); 
 include_once('dbiface.php'); 
-include_once('dataiface.php'); 
 
 // check that the session is still running
 if (!isset($_SESSION['user_id'])) {

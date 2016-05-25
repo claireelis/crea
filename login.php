@@ -21,26 +21,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 	
-    if ($username == 'participant' && $password == 'creaBP2016') {
-	    $_SESSION['errormsg'] = '';
-		$_SESSION['user_id'] = UNKNOWN;
+    if ($username == 'participant' && $password == 'creaBP2016') {		
+	    $_SESSION['user_id'] = UNKNOWN;
 		$_SESSION['role'] = PARTICIPANT;
 	    header("location: expBP2016.php");	
-	}
-    else {
+	} else {
 	    $user = dbSelectUser_by_username_password($username, $password);
 		
         if ($user == 0) {
             $_SESSION['errormsg']="gebruikersnaam en/of wachtwoord onbekend";
-	    } else {
-		    // TODO dbInsertSession_by_user_id($user['user_id']);
+	    } else {		    
 			// TODO sessAddUser_by_user_id();
 			$_SESSION['user_id'] = $user['user_id'];	
 			$_SESSION['name'] = $user['name'];
-			$_SESSION['username'] = $user['username'];
-			$_SESSION['password'] = $user['password'];
-			$_SESSION['email'] = $user['email'];
-			
+						
 			switch ($user['role']) {
 				case 'admin':
 				    $_SESSION['role'] = ADMIN;

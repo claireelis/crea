@@ -5,8 +5,8 @@ include_once('expBP2016_defs.php');
 include_once('expBP2016_texts.php');
 
 $participant_required_fields = array('name', 'dob_d', 'dob_m', 'dob_y', 'gender', 
-	'informedconsent');
-$participant_other_fields = array('email', 'lottery', 'studentnr', 'credit');
+	'informedconsent','credit','lottery');
+$participant_other_fields = array('email','studentnr');
 $participant_fields = array_merge($participant_required_fields, 
 	$participant_other_fields);
 
@@ -20,19 +20,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION['errormsg']="Graag alle vragen beantwoorden.";
 	} else {
 		$dob = mktime(0,0,0,$_POST['dob_m'], $_POST['dob_d'], $_POST['dob_y']);
-		for ($i=0, $participant=array(); $i<sizeof($participant_fields); $i++) {
-			$participant[$participant_fields[$i]] = $_POST[$participant_fields[$i]]; 
-			$_SESSION[$participant_fields[$i]] = $_POST[$participant_fields[$i]]; 
-		}
+		$informedconsent = 1;
 		/*
-		dbInsertParticipant($participant['name'], $participant['participantnr'], 
-			date_unix2mysql($dob), convert_gender($participant['gender']), 
-			$participant['email'], $participant['informedconsent'], 
-			$participant['reward']);
-			
+		if (empty($_POST['email'])) {
+			$_POST['email'] = NULL;
+		}
+		if (empty($participant['studentnr'])) {
+			$participant['studentnr'] = NULL;
+		}
+		*/
+		
+		if (!dbInsertParticipant($_POST['name'], date("YmdHi"), 
+			$_POST['gender'], date_unix2mysql($dob),  
+			$_POST['lottery'], $_POST['credit'], 
+			$informedconsent, $_POST['email'], $_POST['studentnr'])) {
+			$_SESSION['errormsg'].= "dbInsertParticipant failed.";
+		}
+				
+		/*	
 		TODO sessionUpdateUser_id();
 		*/
-		header("Location: expBP2016.php");
+		//header("Location: expBP2016.php");
 	}
 } 
 
@@ -56,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<form method="post" action="personalia.php">
 	<p>
 		<input type="checkbox" name="informedconsent" value="1" /> 
-			Ik heb informatie over het onderzoek ontvangen, gelezen
-			en het toestemmingsformulier ondertekend.
+			Ik heb informatie over het onderzoek ontvangen, gelezen,
+			begrepen, en het toestemmingsformulier ondertekend.
 	</p>
 	<table>			
 	<tr>
@@ -142,28 +150,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<tr>
 		<td>geslacht:&nbsp;</td>
 		<td>
-			<input type="radio" name="gender" value="m" <?php if(isset($_POST['gender']) && ($_POST['gender']=='m')){echo("checked=\"checked\"");}?>/> man
-			<input type="radio" name="gender" value="f" <?php if(isset($_POST['gender']) && ($_POST['gender']=='f')){echo("checked=\"checked\"");}?>/> vrouw
+			<input type="radio" name="gender" value="male" <?php if(isset($_POST['gender']) && ($_POST['gender']=='male')){echo("checked=\"checked\"");}?>/> man
+			<input type="radio" name="gender" value="female" <?php if(isset($_POST['gender']) && ($_POST['gender']=='female')){echo("checked=\"checked\"");}?>/> vrouw
 		</td>
 	</tr>
 	<tr>
-		<td>studentnr:&nbsp;</td>
-		<td><input type="text" name="studentnr"/></td>
+		<td>email:&nbsp;</td>
+		<td><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo($_POST['email']);}?>"/></td>
 	</tr>
 	<tr>
-		<td>email:&nbsp;</td>
-		<td><input type="text" name="email"/></td>
+		<td>studentnr:&nbsp;</td>
+		<td><input type="text" name="studentnr" value="<?php if(isset($_POST['studentnr'])){echo($_POST['studentnr']);}?>"/></td>
 	</tr>
 	</table>
 	<p>
-		<input type="checkbox" name="credit" value="1" />&nbsp; 
-		Ik wil graag proefpersooncredits ontvangen
-		<b>(controleer je studentnr)</b>.
+		Wil je  meedoen met de boekenbon loting?
+		<b>(controleer je emailadres)</b>
+		<br/><input type="radio" name="lottery" value="1" <?php if(isset($_POST['lottery']) && ($_POST['lottery']==1)){echo("checked=\"checked\"");}?>/> Ja
+		<br/><input type="radio" name="lottery" value="0" <?php if(isset($_POST['lottery']) && ($_POST['lottery']==0)){echo("checked=\"checked\"");}?>/> Nee
 	</p>
 	<p>
-		<input type="checkbox" name="lottery" value="1" />&nbsp; 
-		Ik wil graag meedoen met de boekenbon loting 
-		<b>(controleer je emailadres)</b>.
+		Wil je proefpersooncredits ontvangen?
+		<b>(controleer je studentnr)</b>
+		<br/><input type="radio" name="credit" value="1" <?php if(isset($_POST['credit']) && ($_POST['credit']==1)){echo("checked=\"checked\"");}?>/> Ja
+		<br/><input type="radio" name="credit" value="0" <?php if(isset($_POST['credit']) && ($_POST['credit']==0)){echo("checked=\"checked\"");}?>/> Nee
 	</p>
 	<p>
 		<input type="submit" name="Submit" value="OK">
