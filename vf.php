@@ -5,13 +5,18 @@ include_once('expBP2016_defs.php');
 
 if (!isset($_SESSION["vf1"])) {
 	$stimuli = dbSelectAllStimuli_vf();
-
+	print_r($stimuli);
 	$i=0;
 	foreach($stimuli as $skey => $svalue) {
 		$i++;
 		$_SESSION["vfid$i"] = $skey;
 		$_SESSION["vf$i"] = $svalue;
 	}
+}
+
+// get response if there is one
+if ($_SERVER["REQUEST_METHOD"] == ("GET" || "POST")) {	
+	get_task_data();
 }
 
 if (!isset($_SESSION['vfitemnr'])) {
@@ -21,9 +26,9 @@ if (!isset($_SESSION['vfitemnr'])) {
 }
 
 if ($_SESSION['vfitemnr'] > VF_NUMSTIMULI) {
+	$_SESSION['vfitemnr'] = RESET;
 	header("location: expBP2016.php");
 }
-
 ?>
 
 <html>
@@ -61,3 +66,7 @@ if ($_SESSION['vfitemnr'] > VF_NUMSTIMULI) {
 	</p>
 </body>
 </html>
+
+<?php
+$_SESSION['errormsg'] = "";
+?>

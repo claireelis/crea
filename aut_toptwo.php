@@ -8,14 +8,72 @@ if (!(isset($_SESSION['errormsg']))) {
 	$_SESSION['errormsg'] = '';
 }
 
-if (!isset($_SESSION["aut1answer"])) {
-	$_SESSION["aut1answer"] = array ("barbie huis bouwen",
-		"nagelvijl","boekenstop","deur open houden","raam open houden",
-		"bureau verhogen","paper weight");
-	$_SESSION["aut2answer"] = array ("waslijn","schilderij ophangen",
-		"riem","trek speelgoed zoals loopauto","traphekje vastzetten");
+// if POST then participant supplied their top two
+// check if exactly two (or less if less results)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	// get top two checklist
+	if(isset($_POST['auttoptwo'])) {
+		$auttoptwo = $_POST['auttoptwo'];
+	} else {
+		$auttoptwo = 0;
+	}
+	
+	// how many aut responses did s/he give?
+	$numresponses = $_POST['numresponses'];
+	
+	// how many top's did s/he choose?
+	$numtops = check_count($auttoptwo);
+		
+	// if >= 2 responses then should be exactly 2 tops
+	// if > 2 tops then errormsg to supply only 2
+	// else if <2 responses then # responses = # tops
+	if ($numresponses >= 2) {
+		if ($numtops != 2) {
+			$_SESSION['errormsg'] = "Kies 2 antwoorden.";
+		} else {
+			// mark responses in dbase with toptwo boolean
+			mark_toptwo_responses();
+		}
+	} else {
+		// mark response (if there was one) in dbase with toptwo boolean
+		if (!empty($numresponses)) {
+			mark_toptwo_responses();
+		}
+	}
 }
 
+function mark_toptwo_responses() {
+	print "mark toptwo responses";
+}
+
+// update autitemnr, our counter to loop through the items
+if ($_SESSION['autitemnr'] == RESET) {
+	$_SESSION['autitemnr'] = 1;
+} else {
+	// if no errors go to next item, else stay on page
+	//if (empty($_SESSION['errormsg'])) {
+		$_SESSION['autitemnr']++;
+	//}
+}
+
+// get all of this user's responses to current autitemnr
+$itemnr = $_SESSION['autitemnr'];
+$stimulusid = $_SESSION["autid$itemnr"];
+$responses = dbSelectAUTResponses_by_userid_stimulusid(
+			 $_SESSION['user_id'], $stimulusid); 
+			 
+// display this user's responses to this item as checkbox list
+$responselist = "";
+foreach ($responses as $responseid => $response) {
+	$responselist .= "<input type='checkbox' name='auttoptwo[]' 
+		value=$responseid/>$response<br/>";
+}
+
+// after looping through all items reset counter and goto state machine
+if ($_SESSION['autitemnr'] > AUT_NUMSTIMULI) {
+	$_SESSION['autitemnr'] = RESET;
+	header("location: expBP2016.php");
+}
 ?>
 
 <html>
@@ -28,14 +86,27 @@ if (!isset($_SESSION["aut1answer"])) {
 		Alternatieve Toepassingen - Top Twee!
 	</h1>
 	<p>
-		Hieronder zie je alle begrippen die je zojuist bedacht hebt
-		nog een keer. Kies per voorwerp de twee antwoorden uit
-		die jij het meest creatief vindt.
+		Hier zie je de alternatieve toepassingen die je zojuist bedacht hebt
+		voor:
+	</p>
+	<p id="stimulus">
+		<?php echo $_SESSION["aut$itemnr"];?>
+	</p>		
+	<p>
+		Kies de twee antwoorden die jij het meest creatief vindt.
+	</p>
+	<p id="error">
+		<?php echo $_SESSION['errormsg']; $_SESSION['errormsg'] = ''; ?>
 	</p>
 	<p>
+	<form method="post" action="aut_toptwo.php">
+		<input type="hidden" id="stimulusid" value="<?php echo $stimulusid;?>" />
+		<input type="hidden" id="stimulus" value="<?php echo $_SESSION["aut$itemnr"];?>" />
+		<input type="hidden" id="numresponses" value="<?php echo check_count($responses);?>" />
+		<?php echo $responselist; ?>
+		<input type="submit" value="OK"/>
+	</form>
 	</p>
-		TODO loop through items (one page per item); loop through answers; 
-		checkbox before each answer; check that only two answers were checked.
 	<p>
 		<a href="expBP2016.php">NEXT TASK</a>
 	</p>

@@ -93,6 +93,17 @@ function dbInsertAUTResponses_by_userid_stimulusid($userid, $stimulusid,
 	return $result;
 }
 
+function dbInsertVFResponses_by_userid_stimulusid($userid, $stimulusid, 
+	$response, $starttime, $endtime) {
+
+	$sql="INSERT INTO `vf-response` 
+		(`participant_fk`, `stimulus_fk`, `response`, `starttime`, `endtime`) 
+		VALUES ($userid, $stimulusid, \"$response\", $starttime, $endtime)";
+	
+	$result = dbQuery($sql);
+	return $result;
+}
+
 function dbUpdateSession_starttime_by_userid($userid) {
 	$sql = "UPDATE `session` SET `starttime`=NOW() WHERE `user_fk`=$userid";
 	return dbQuery($sql);
@@ -132,9 +143,45 @@ function dbSelectAllStimuli_vf() {
 		$stimuli = array();
 		while ($row = mysqli_fetch_row($result)) {
 			$stimuli[$row[0]] = $row[1];
+		}		
+		return $stimuli;
+	}
+}
+
+function dbSelectAUTResponses_by_userid_stimulusid($userid, $stimulusid) {
+	$sql = "SELECT `AUT-response_id`, `response` FROM `aut-response` WHERE 
+			`participant_fk` = $userid AND `stimulus_fk` = $stimulusid";
+	$result = dbQuery($sql);	
+	
+	if (!($result)) {
+		$_SESSION['errormsg'] .= 'DBerror: cannot find responses.';
+		return 0;
+	}
+	else {
+		$responses = array();
+		while ($row = mysqli_fetch_row($result)) {			
+			$responses[$row[0]] = $row[1];
+		}		
+		return $responses;
+	}
+}
+
+function dbSelectVFResponses_by_userid_stimulusid($userid, $stimulusid) {
+	$sql = "SELECT `response` FROM `vf-response` WHERE 
+			`participant_fk` = $userid AND `stimulus_fk` = $stimulusid";
+	$result = dbQuery($sql);
+
+	if (!($result)) {
+		$_SESSION['errormsg'] .= 'DBerror: cannot find responses.';
+		return 0;
+	}
+	else {
+		$responses = array();
+		while ($row = mysqli_fetch_row($result)) {
+			$responses[$row[0]] = $row[1];
 		}
 		
-		return $stimuli;
+		return $responses;
 	}
 }
 

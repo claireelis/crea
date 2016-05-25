@@ -43,15 +43,22 @@ function get_task_data() {
 				if (strlen($responses[$i]) < 2) {
 					$_SESSION['errormsg'] .= "no response";
 				} else {
-					$dbres = dbInsertAUTResponses_by_userid_stimulusid(
-					$_SESSION['user_id'], $stimulusid, $responses[$i], 
-					$starttimes[$i], $endtimes[$i]);
+					if ($_SESSION['expphase'] == EXP_AUT) {
+						$dbres = dbInsertAUTResponses_by_userid_stimulusid(
+						$_SESSION['user_id'], $stimulusid, $responses[$i], 
+						$starttimes[$i], $endtimes[$i]);
+					} else if ($_SESSION['expphase'] == EXP_VF) {
+						$dbres = dbInsertVFResponses_by_userid_stimulusid(
+						$_SESSION['user_id'], $stimulusid, $responses[$i], 
+						$starttimes[$i], $endtimes[$i]);
+					}	else {
+						$_SESSION['errormsg'] .= "incorrect experiment phase to insert GET or POST data.";
+					}
 					if (!$dbres) {
 						$_SESSION['errormsg'] .= "response insert failed.";
 					}
 				}
-			}	
-			
+			}				
 		}
 	}
 }
@@ -75,6 +82,16 @@ function convert_gender($gender) {
 function date_unix2mysql($unixtimestamp) {
 	$mysqldate = date('Y-m-d', $unixtimestamp);
 	return $mysqldate;
+}
+
+// count num elements in array, but set count to 0 if empty
+function check_count($counts) {
+	if (empty($counts)) {
+		$count = 0;
+	} else {
+		$count = count($counts);
+	}
+	return $count;
 }
 
 /*

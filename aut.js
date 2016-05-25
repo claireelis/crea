@@ -14,9 +14,7 @@ var endtime = "";
 function load() {
 	itemnr = document.getElementById("itemnr").value;
 	itemstimulus = document.getElementById("itemstimulus").value;
-	if (itemnr == startItemNr) {
-		startSign();
-	}	
+	startSign();	
 	startItem();
 }
 
