@@ -1,5 +1,7 @@
 <?php
 
+ob_start();
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -96,3 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</p>
 </body>
 </html>
+
+<?php
+ob_end_flush();
+?>

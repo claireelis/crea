@@ -37,6 +37,9 @@ switch ($_SESSION['expphase']) {
 	case EXP_VF:
 		header("location: vf.php");
 		break;
+	case EXP_AUTRATINGINSTR:
+		header("location: aut_ratinginstr.php");
+		break;		
 	case EXP_AUTRATING:
 		header("location: aut_rating.php");
 		break;

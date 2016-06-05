@@ -32,7 +32,7 @@ function get_task_data() {
 			$itemnr = $_SESSION['vfitemnr'];
 			$stimulusid = $_SESSION["vfid$itemnr"];
 		} else {
-			$_SESSION['errormsg'] .= "incorrect experiment phase to insert GET or POST data.";
+			$_SESSION['errormsg'] = "incorrect experiment phase to insert GET or POST data.";
 		}
 		
 		if((count($responses) != count($starttimes)) 
@@ -41,7 +41,7 @@ function get_task_data() {
 		} else {		
 			for ($i=0; $i < sizeof($responses);$i++) {
 				if (strlen($responses[$i]) < 2) {
-					$_SESSION['errormsg'] .= "no response";
+					$_SESSION['errormsg'] = "no response";
 				} else {
 					if ($_SESSION['expphase'] == EXP_AUT) {
 						$dbres = dbInsertAUTResponses_by_userid_stimulusid(
@@ -52,10 +52,10 @@ function get_task_data() {
 						$_SESSION['user_id'], $stimulusid, $responses[$i], 
 						$starttimes[$i], $endtimes[$i]);
 					}	else {
-						$_SESSION['errormsg'] .= "incorrect experiment phase to insert GET or POST data.";
+						$_SESSION['errormsg'] = "2: incorrect experiment phase to insert GET or POST data.";
 					}
 					if (!$dbres) {
-						$_SESSION['errormsg'] .= "response insert failed.";
+						$_SESSION['errormsg'] = "response insert failed.";
 					}
 				}
 			}				

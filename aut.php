@@ -42,12 +42,12 @@ if ($_SESSION['autitemnr'] > AUT_NUMSTIMULI) {
 		Alternatieve Toepassingen
 	</h1>
 	<p id="instruction1">
-		Bedenk zo veel mogelijke alternatieve toepassingen voor een:
+		Bedenk zo veel mogelijk alternatieve toepassingen voor een:
 	</p>
 	<p id="stimulus">
 	</p>
 	<p id="instruction2">
-		Je krijgt 2 minuten de tijd. Typ elk toepassing in het vakje hieronder. 
+		Je krijgt 2 minuten de tijd. Typ elke toepassing in het vakje hieronder. 
 		Druk op Enter om deze aan de lijst toe te voegen:
 	</p>
 	<p>
@@ -55,14 +55,9 @@ if ($_SESSION['autitemnr'] > AUT_NUMSTIMULI) {
 	<input type="text" name="answer" size="100" maxlength="100" onKeyPress="return submitEnter(this,event)" id="answer"/>&nbsp;&nbsp;&nbsp;
 		<input type="hidden" id="itemnr" value="<?php echo $_SESSION['autitemnr']?>" />
 		<input type="hidden" id="itemstimulus" value="<?php $itemnr = $_SESSION['autitemnr']; echo $_SESSION["aut$itemnr"]?>" />
-		<input type="button" value="OK" onclick="prependResponse()" />
 	</form>
 	</p>
 	<p id="response">
-	</p>
-	<p id="error"><br/><?php echo $_SESSION['errormsg']; ?></p> 
-	<p>
-		ONLY FOR TESTING PHASE: <a href="expBP2016.php">GOTO NEXT TASK</a>
 	</p>
 </body>
 </html>

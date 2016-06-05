@@ -1,11 +1,8 @@
 <!--
 var itemnr = 0;
-var startItemNr = 1;
-var pauseItemNr = 4;
-var endItemNr = 8;
 var timer;
-var itemDuration = 10000; // for testing purposes -> 10 seconds
-//var itemDuration = 120000; // in milliseconds -> 2 minuten is 120000
+//var itemDuration = 10000; // for testing purposes -> 10 seconds
+var itemDuration = 120000; // in milliseconds -> 2 minuten is 120000
 var itemstimulus = "";
 var response = "";
 var starttime = "";
@@ -28,13 +25,6 @@ function startItem() {
 function nextItem() {
 	var send;
 
-	if (itemnr == pauseItemNr) {
-		pauseSign();
-	}
-	if (itemnr == endItemNr) {
-		endSign();
-	}
-	
 	send = encodeURIComponent(response);
 	response = response.substring(0, response.length-1);
 	starttime = starttime.substring(0, starttime.length-1);
@@ -92,15 +82,7 @@ function putFocus(formInst, elementInst) {
 }
 
 function startSign() {
-	displayMessage("***START*** \n\n Als je op OK drukt dan begint de tijd meteen te lopen.");
-}
-
-function pauseSign() {
-	displayMessage("***PAUZE***\n\nJe bent nu halverwege de taak.\nZo nodig kan je een korte pauze houden.\nDruk daarna op OK om verder te gaan.");
-}
-
-function endSign() {	
-	displayMessage("***EINDE***\n\nJe bent nu klaar met deze taak.\nDruk op OK om naar de volgende onderdeel te gaan.");
+	displayMessage("***Begin Opdracht***\n Als je op OK drukt dan begint de tijd meteen te lopen.");
 }
 
 function post(path, params, method) {

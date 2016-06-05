@@ -13,10 +13,10 @@ include_once('accesscontrol.php');
 	</h1>
 	<p>
 		Je gaat zo beginnen met het eerste onderdeel van dit onderzoek. 
-		Deze duurt 2 x 8 minuten met een korte pauze tussendoor. 
+		Dit duurt 2 x 8 minuten met een korte pauze tussendoor. 
 		</br></br>
 		Het is de bedoeling dat je zoveel mogelijk <b>alternatieve toepassingen</b>
-		(gebruiksmogelijkheden) voor gepresenteerde voorwerpen bedenkt.
+		(gebruiksmogelijkheden) voor de gepresenteerde voorwerpen bedenkt.
 		</br></br>
 		Je krijgt in totaal 8 voorwerpen te zien. 
 		</br></br>

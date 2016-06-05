@@ -1,7 +1,7 @@
 <!--
 
-var itemDuration = 10000; // for testing purposes -> 10 seconds
-//var itemDuration = 120000; // in milliseconds -> 2 minuten is 120000
+//var itemDuration = 10000; // for testing purposes -> 10 seconds
+var itemDuration = 120000; // in milliseconds -> 2 minuten is 120000
 
 var itemnr = 0;
 var itemstimulus = "";
@@ -51,7 +51,7 @@ function displayMessage(msg) {
 }
 
 function appendResponse() {
-	var time = Math.round(new Date().getTime() / 1000);
+	var time = Math.round(new Date().getTime());
 	var answer = document.getElementById("answer").value;
 
 	endtime += time+";";
@@ -87,7 +87,7 @@ function putFocus(formInst, elementInst) {
 }
 
 function startSign() {
-	displayMessage("***Begin Opdracht***\n\n Als je op OK drukt dan begint de tijd meteen te lopen.");
+	displayMessage("***Begin Opdracht***\n Als je op OK drukt dan begint de tijd meteen te lopen.");
 }
 
 //-->

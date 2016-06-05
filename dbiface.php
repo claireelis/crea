@@ -75,11 +75,17 @@ function dbInsertParticipant($name, $participantnr, $gender, $dob, $credit=FALSE
 	
 	$sql="INSERT INTO `user`(`role`, `participantnr`, `name`, `email`, 
 	`gender`, `dob`, `informed-consent`, `credit`, `lottery`, `studentnr`) 
-	VALUES ('participant', $participantnr, '$name', '$email', '$gender', $dob,
+	VALUES ('participant', $participantnr, '$name', '$email', '$gender', '$dob',
 	$informedconsent, $credit, $lottery, '$studentnr')";
 	
-	$result = dbQuery($sql);
-	return $result;
+	return dbQuery($sql);
+}
+
+function dbUpdateAUTResponses_by_responseid($responseid) {
+	$sql="UPDATE `aut-response` SET `toptwo` = 1 WHERE 
+		`AUT-response_id`=$responseid";
+	
+	return dbQuery($sql);
 }
 
 function dbInsertAUTResponses_by_userid_stimulusid($userid, $stimulusid, 
@@ -89,8 +95,7 @@ function dbInsertAUTResponses_by_userid_stimulusid($userid, $stimulusid,
 		(`participant_fk`, `stimulus_fk`, `response`, `starttime`, `endtime`) 
 		VALUES ($userid, $stimulusid, \"$response\", $starttime, $endtime)";
 	
-	$result = dbQuery($sql);
-	return $result;
+	return dbQuery($sql);
 }
 
 function dbInsertVFResponses_by_userid_stimulusid($userid, $stimulusid, 
@@ -100,8 +105,7 @@ function dbInsertVFResponses_by_userid_stimulusid($userid, $stimulusid,
 		(`participant_fk`, `stimulus_fk`, `response`, `starttime`, `endtime`) 
 		VALUES ($userid, $stimulusid, \"$response\", $starttime, $endtime)";
 	
-	$result = dbQuery($sql);
-	return $result;
+	return dbQuery($sql); 
 }
 
 function dbUpdateSession_starttime_by_userid($userid) {
@@ -148,21 +152,71 @@ function dbSelectAllStimuli_vf() {
 	}
 }
 
-function dbSelectAUTResponses_by_userid_stimulusid($userid, $stimulusid) {
+function dbSelectAUTResponsesTopTwo_by_userid_stimulusid($userid, $stimulusid) {
 	$sql = "SELECT `AUT-response_id`, `response` FROM `aut-response` WHERE 
-			`participant_fk` = $userid AND `stimulus_fk` = $stimulusid";
+			`participant_fk` = $userid AND `stimulus_fk` = $stimulusid
+			AND `toptwo` = 1 ORDER BY `AUT-response_id`";
 	$result = dbQuery($sql);	
 	
 	if (!($result)) {
-		$_SESSION['errormsg'] .= 'DBerror: cannot find responses.';
+		$_SESSION['errormsg'] .= "DBerror: cannot find responses.";
 		return 0;
+	} else {
+		$responses = array();
+		while ($row = mysqli_fetch_row($result)) {
+			$responses[$row[0]] = $row[1];
+		}
+		if (count($responses)< 2) {
+			$_SESSION['errormsg'] .= "Minder dan twee antwoorden gegeven.";
+			$reponses[1] = "geen antwoord, geef score 1";
+			if (count($responses) == 0){
+				$reponses[0] = "geen antwoord, geef score 1";
+			}
+		}		
+		return $responses;
 	}
-	else {
+}
+
+function dbInsertAUTResponseRating_by_responseid_stimulusid_participantid($responseid, 
+	$stimulusid, $participantid, $origrating, $utilrating, $crearating) {
+	$sql = "INSERT INTO `participant_aut-rating`(`participant_fk`, `stimulus_fk`, 
+		`response_fk`, `originality`, `utility`, `creativity`) VALUES 
+		($participantid,$stimulusid,$responseid,$origrating,$utilrating,$crearating)";
+	$result = dbQuery($sql);
+
+	return $result;
+}
+
+function dbSelectAUTResponses_by_userid_stimulusid($userid, $stimulusid) {
+	$sql = "SELECT `AUT-response_id`, `response` FROM `aut-response` WHERE 
+			`participant_fk` = $userid AND `stimulus_fk` = $stimulusid
+			ORDER BY `AUT-response_id`";
+	$result = dbQuery($sql);	
+	
+	if (!($result)) {
+		$_SESSION['errormsg'] .= "DBerror: cannot find responses.";
+		return 0;
+	} else {
 		$responses = array();
 		while ($row = mysqli_fetch_row($result)) {			
 			$responses[$row[0]] = $row[1];
 		}		
 		return $responses;
+	}
+}
+
+function dbCountAUTResponses_by_userid_stimulusid($userid, $stimulusid) {
+	$sql = "SELECT COUNT(`AUT-response_id`) FROM `aut-response` WHERE 
+			`participant_fk` = $userid AND `stimulus_fk` = $stimulusid";
+	$result = dbQuery($sql);	
+	
+	if (!($result)) {
+		//$_SESSION['errormsg'] .= 'DBerror: cannot find responses.';
+		return 0;
+	}
+	else {
+		$result1 = mysqli_fetch_row($result);
+		return $result1[0];
 	}
 }
 

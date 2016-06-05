@@ -1,6 +1,6 @@
 <?php
 
-include("dbiface.php");
+//include("dbiface.php");
 
 if (!isset($_SESSION)) {
     session_start();
@@ -38,6 +38,9 @@ session_destroy();
 		<br/>
 		<br/>
 		Dank je wel voor het meedoen!
+		<br/>
+		<br/>
+		Mocht je nog vragen hebben, dan kan je die nu stellen of later mailen naar C.E.Stevenson@uva.nl.
 	</p>
 	<p align="center">
 	    <br/>

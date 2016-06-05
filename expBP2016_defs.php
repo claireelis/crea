@@ -7,8 +7,11 @@ define("EXP_AUT", 2);
 define("EXP_AUTTOPTWO", 3);
 define("EXP_VFINSTR", 4);
 define("EXP_VF", 5);
-define("EXP_AUTRATING", 6);
-define("EXP_END", 7);
+define("EXP_AUTRATINGINSTR", 6);
+define("EXP_AUTRATING", 7);
+define("EXP_END", 8);
+
+define("EXPERT_PARTICIPANTID", 1);
 
 /*
  * THESE CONSTANTS CAN BE ADJUSTED BE SURE TO CHANGE 
@@ -21,5 +24,6 @@ define("VF_ITEMDURATION", 2);
 // number of items per task
 define("AUT_NUMSTIMULI", 8);
 define("VF_NUMSTIMULI", 2);
+define("AUTRATING_NUMSTIMULI", 6);
 
 ?>

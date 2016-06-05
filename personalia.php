@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<p>
 		<input type="checkbox" name="informedconsent" value="1" /> 
 			Ik heb informatie over het onderzoek ontvangen, gelezen,
-			begrepen, en het toestemmingsformulier ondertekend.
+			begrepen en het toestemmingsformulier ondertekend.
 	</p>
 	<table>			
 	<tr>
@@ -120,6 +120,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<option value="12" <?php if(isset($_POST['dob_m']) && ($_POST['dob_m']==12)){echo("selected");}?>>12</option>
 			</select>-
 			<select name="dob_y">
+			<option value="1950" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1950)){echo("selected");}?>>1950</option>
+			<option value="1951" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1951)){echo("selected");}?>>1951</option>
+			<option value="1952" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1952)){echo("selected");}?>>1952</option>
+			<option value="1953" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1953)){echo("selected");}?>>1953</option>
+			<option value="1954" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1954)){echo("selected");}?>>1954</option>
+			<option value="1955" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1955)){echo("selected");}?>>1955</option>
+			<option value="1956" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1956)){echo("selected");}?>>1956</option>
+			<option value="1957" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1957)){echo("selected");}?>>1957</option>
+			<option value="1958" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1958)){echo("selected");}?>>1958</option>
+			<option value="1959" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1959)){echo("selected");}?>>1959</option>
+			<option value="1960" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1960)){echo("selected");}?>>1960</option>
+			<option value="1961" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1961)){echo("selected");}?>>1961</option>
+			<option value="1962" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1962)){echo("selected");}?>>1962</option>
+			<option value="1963" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1963)){echo("selected");}?>>1963</option>
+			<option value="1964" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1964)){echo("selected");}?>>1964</option>
+			<option value="1965" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1965)){echo("selected");}?>>1965</option>
+			<option value="1966" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1966)){echo("selected");}?>>1966</option>
+			<option value="1967" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1967)){echo("selected");}?>>1967</option>
+			<option value="1968" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1968)){echo("selected");}?>>1968</option>
+			<option value="1969" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1969)){echo("selected");}?>>1969</option>
+			<option value="1970" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1970)){echo("selected");}?>>1970</option>
+			<option value="1971" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1971)){echo("selected");}?>>1971</option>
+			<option value="1972" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1972)){echo("selected");}?>>1972</option>
+			<option value="1973" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1973)){echo("selected");}?>>1973</option>
+			<option value="1974" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1974)){echo("selected");}?>>1974</option>
+			<option value="1975" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1975)){echo("selected");}?>>1975</option>
+			<option value="1976" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1976)){echo("selected");}?>>1976</option>
+			<option value="1977" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1977)){echo("selected");}?>>1977</option>
+			<option value="1978" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1978)){echo("selected");}?>>1978</option>
+			<option value="1979" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1979)){echo("selected");}?>>1979</option>
+			<option value="1980" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1980)){echo("selected");}?>>1980</option>
+			<option value="1981" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1981)){echo("selected");}?>>1981</option>
+			<option value="1982" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1982)){echo("selected");}?>>1982</option>
+			<option value="1983" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1983)){echo("selected");}?>>1983</option>
+			<option value="1984" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1984)){echo("selected");}?>>1984</option>
+			<option value="1985" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1985)){echo("selected");}?>>1985</option>
+			<option value="1986" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1986)){echo("selected");}?>>1986</option>
+			<option value="1987" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1987)){echo("selected");}?>>1987</option>
+			<option value="1988" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1988)){echo("selected");}?>>1988</option>
+			<option value="1989" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1989)){echo("selected");}?>>1989</option>		
 			<option value="1990" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1990)){echo("selected");}?>>1990</option>
 			<option value="1991" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1991)){echo("selected");}?>>1991</option>
 			<option value="1992" <?php if(isset($_POST['dob_y']) && ($_POST['dob_y']==1992)){echo("selected");}?>>1992</option>

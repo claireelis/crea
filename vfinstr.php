@@ -19,7 +19,7 @@ include_once('accesscontrol.php');
 		Bedenk zo veel mogelijk begrippen die binnen deze 
 		categorie passen. 
 		<br/><br/>
-		Ieder bedacht antwoord typ je in de balk onder het categorie. 
+		Ieder bedacht antwoord typ je in de balk onder de categorie. 
 		Na het intypen druk je op Enter om het antwoord op te slaan. 
 	</p>
 	<form method="post" action="expBP2016.php">		
