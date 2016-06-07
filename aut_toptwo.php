@@ -1,7 +1,6 @@
 <?php 
 include_once('accesscontrol.php');
 include_once('expBP2016_defs.php');
-include_once('expBP2016_texts.php');
 
 // set errormessaging
 if (!(isset($_SESSION['errormsg']))) {

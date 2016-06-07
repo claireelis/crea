@@ -2,7 +2,6 @@
 
 include_once('accesscontrol.php');
 include_once('expBP2016_defs.php');
-include_once('expBP2016_texts.php');
 
 $participant_required_fields = array('name', 'dob_d', 'dob_m', 'dob_y', 'gender', 
 	'informedconsent','credit','lottery');

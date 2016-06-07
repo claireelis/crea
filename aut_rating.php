@@ -2,7 +2,6 @@
 
 include_once('accesscontrol.php');
 include_once('expBP2016_defs.php');
-include_once('expBP2016_texts.php');
 
 // *** PROCESS INPUT ***
 // if POST then participant supplied their top two
